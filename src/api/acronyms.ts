@@ -39,7 +39,19 @@ router.get('/', async function getAcronyms(req: Request, res: Response, next: Ne
 
   res.set('Link', links);
   res.status(200);
-  res.send({ acronyms });
+  res.send(acronyms);
+});
+
+router.get('/:acronym', async function getAcronym(req: Request, res: Response, next: NextFunction) {
+  let acronym;
+  try {
+    acronym = await acronymsService.getAcronym({ db, acronymValue: req.params.acronym });
+  } catch (error) {
+    return next(error);
+  }
+
+  res.status(200);
+  res.send(acronym);
 });
 
 export default router;

@@ -1,5 +1,6 @@
 import cors from 'cors';
 import express from 'express';
+import listEndpoints from 'express-list-endpoints';
 import helmet from 'helmet';
 import morgan from 'morgan';
 
@@ -20,7 +21,9 @@ app.use('/acronym', acronymsAPI);
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((error, _req, res, _next) => {
   if (error instanceof ResponseError) {
-    console.error(error.originalError);
+    if (error.originalError) {
+      console.error(error.originalError);
+    }
     res.status(error.statusCode);
     res.send({ message: error.message });
   } else {
@@ -40,6 +43,7 @@ async function startServer() {
   try {
     await listen(3000);
     console.log('Server listening at 127.0.0.1:3000');
+    console.log(listEndpoints(app));
   } catch (error) {
     console.error(error);
     process.exit(1);

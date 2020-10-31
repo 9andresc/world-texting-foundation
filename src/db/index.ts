@@ -1,7 +1,18 @@
+import Knex from 'knex';
 import knex from 'knex';
 
 import knexConfig from './knexfile';
 
-const db = knex(knexConfig.development);
+let connection: Knex;
 
-export default db;
+function connectToDB(): Knex {
+  if (connection) {
+    console.log('Cached connection.');
+    return connection;
+  }
+
+  connection = knex(knexConfig.development);
+  return connection;
+}
+
+export { connectToDB };

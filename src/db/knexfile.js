@@ -1,8 +1,11 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const path = require('path');
+
 module.exports = {
   development: {
     client: 'sqlite3',
     connection: {
-      filename: './wtf.db',
+      filename: path.resolve(__dirname, 'wtf.db'),
     },
     migrations: {
       directory: ['./migrations'],
@@ -10,5 +13,6 @@ module.exports = {
     seeds: {
       directory: ['./seeds'],
     },
+    useNullAsDefault: true,
   },
 };

@@ -13,7 +13,12 @@ function fillBatches(acronyms, startIndex) {
     return;
   }
 
-  acronymsBatches.push(acronyms.splice(startIndex, 499));
+  acronymsBatches.push(
+    acronyms.splice(startIndex, 499).map((a) => ({
+      ...a,
+      definitions: JSON.stringify(a.definitions),
+    })),
+  );
   fillBatches(acronyms, 0);
 }
 

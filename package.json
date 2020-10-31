@@ -2,7 +2,7 @@
   "name": "world-texting-foundation",
   "version": "1.0.0",
   "description": "A simple Node.js server that provides an API for WTF (World Texting Foundation)",
-  "main": "src/index.ts",
+  "main": "src/server.ts",
   "scripts": {
     "build": "tsc --project ./",
     "check": "ncu",
@@ -11,7 +11,7 @@
     "dbm:undo": "knex --knexfile src/db/knexfile.js migrate:rollback",
     "dbs:new": "knex --knexfile src/db/knexfile.js seed:make",
     "dbs:run": "knex --knexfile src/db/knexfile.js seed:run",
-    "start": "nodemon src/index.ts",
+    "start": "ts-node -r tsconfig-paths/register src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "update": "ncu -u"
   },
@@ -26,7 +26,10 @@
   },
   "homepage": "https://github.com/9andresc/world-texting-foundation#readme",
   "devDependencies": {
-    "@babel/preset-typescript": "7.12.1",
+    "@types/cors": "2.8.8",
+    "@types/express": "4.17.8",
+    "@types/helmet": "4.0.0",
+    "@types/morgan": "1.9.2",
     "@types/node": "14.14.5",
     "@typescript-eslint/eslint-plugin": "4.6.0",
     "@typescript-eslint/parser": "4.6.0",
@@ -38,11 +41,16 @@
     "nodemon": "2.0.6",
     "npm-check-updates": "9.2.3",
     "prettier": "2.1.2",
-    "ts-node": "9.0.0",
+    "tsconfig-paths": "3.9.0",
     "typescript": "4.0.5"
   },
   "dependencies": {
+    "cors": "2.8.5",
+    "express": "4.17.1",
+    "helmet": "4.1.1",
     "knex": "0.21.7",
+    "morgan": "1.10.0",
+    "query-string": "6.13.6",
     "sqlite3": "5.0.0"
   }
 }

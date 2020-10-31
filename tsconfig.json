@@ -1,15 +1,24 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "module": "commonjs",
     "rootDir": "./",
-    "outDir": "./build",
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "paths": {
+      "*": ["src/*"],
+      "api/*": ["src/api/*"],
+      "db/*": ["src/db/*"],
+      "helpers/*": ["src/helpers/*"],
+      "scripts/*": ["src/scripts/*"],
+      "services/*": ["src/services/*"]
+    },
     "esModuleInterop": true,
-    "strict": true,
     "allowJs": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
     "resolveJsonModule": true
-  }
+  },
+  "include": ["./src/**/*.ts"],
+  "exclude": ["node_modules"]
 }

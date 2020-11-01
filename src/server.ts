@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 
 import acronymsAPI from 'api/acronyms';
+import miscAPI from 'api/misc';
 import { ResponseError } from 'helpers/errors';
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(express.json());
 
 // API
 app.use('/acronym', acronymsAPI);
+app.use('/', miscAPI);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((error, _req, res, _next) => {

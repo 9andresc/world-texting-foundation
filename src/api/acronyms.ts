@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express';
 
 import { connectToDB } from 'db';
+import { Acronym } from 'db/interfaces/acronyms';
 import { generateLinks } from 'helpers/pagination';
 import acronymsService from 'services/acronyms';
 
@@ -24,8 +25,8 @@ router.get('/', async function getAcronyms(req: Request, res: Response, next: Ne
     queryParams.search = String(req.query.search);
   }
 
-  let acronyms;
-  let total;
+  let acronyms: Acronym[];
+  let total: number;
   try {
     ({ acronyms, total } = await acronymsService.getAcronyms({
       db,
@@ -39,11 +40,11 @@ router.get('/', async function getAcronyms(req: Request, res: Response, next: Ne
 
   res.set('Link', links);
   res.status(200);
-  res.send(acronyms);
+  res.send(acronyms.map((a) => ({ ...a, definitions: JSON.parse(String(a.definitions)) })));
 });
 
 router.get('/:acronym', async function getAcronym(req: Request, res: Response, next: NextFunction) {
-  let acronym;
+  let acronym: Acronym;
   try {
     acronym = await acronymsService.getAcronym({ db, acronymValue: req.params.acronym });
   } catch (error) {
@@ -51,7 +52,7 @@ router.get('/:acronym', async function getAcronym(req: Request, res: Response, n
   }
 
   res.status(200);
-  res.send(acronym);
+  res.send({ ...acronym, definitions: JSON.parse(String(acronym.definitions)) });
 });
 
 export default router;

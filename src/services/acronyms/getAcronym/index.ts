@@ -5,16 +5,16 @@ import { ResponseError } from 'helpers/errors';
 
 type Params = {
   db: Knex;
-  acronymValue: string;
+  params: {
+    acronym: string;
+  };
 };
 
-async function getAcronym({ db, acronymValue }: Params): Promise<Acronym> {
+async function getAcronym({ db, params }: Params): Promise<Acronym> {
   const acronym = await db
     .select('acronym', 'definitions')
     .from('acronyms')
-    .where({
-      acronym: acronymValue,
-    })
+    .where(db.raw('UPPER(acronym)'), '=', params.acronym.toUpperCase())
     .first();
   if (!acronym) {
     throw new ResponseError('Acronym not found.', 404);

@@ -30,7 +30,7 @@ router.get('/', async function getAcronyms(req: Request, res: Response, next: Ne
   try {
     ({ acronyms, total } = await acronymsService.getAcronyms({
       db,
-      ...queryParams,
+      queryParams,
     }));
   } catch (error) {
     return next(error);
@@ -44,14 +44,35 @@ router.get('/', async function getAcronyms(req: Request, res: Response, next: Ne
 });
 
 router.get('/:acronym', async function getAcronym(req: Request, res: Response, next: NextFunction) {
+  const params = {
+    acronym: req.params.acronym,
+  };
+
   let acronym: Acronym;
   try {
-    acronym = await acronymsService.getAcronym({ db, acronymValue: req.params.acronym });
+    acronym = await acronymsService.getAcronym({ db, params });
   } catch (error) {
     return next(error);
   }
 
   res.status(200);
+  res.send({ ...acronym, definitions: JSON.parse(String(acronym.definitions)) });
+});
+
+router.post('/', async function createAcronym(req: Request, res: Response, next: NextFunction) {
+  const data = {
+    acronym: req.body.acronym,
+    definitions: req.body.definitions,
+  };
+
+  let acronym: Acronym;
+  try {
+    acronym = await acronymsService.createAcronym({ db, data });
+  } catch (error) {
+    return next(error);
+  }
+
+  res.status(201);
   res.send({ ...acronym, definitions: JSON.parse(String(acronym.definitions)) });
 });
 

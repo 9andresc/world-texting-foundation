@@ -1,6 +1,6 @@
 import { randomNumber } from 'helpers';
 
-function getRandomNotAdjactedItems(items: unknown[], count: number): unknown[] {
+function getRandomNonAdjacentItems(items: unknown[], count: number): unknown[] {
   const randomItems = [];
 
   let indexes = items.map((_i, i) => i);
@@ -42,4 +42,4 @@ function getRandomNotAdjactedItems(items: unknown[], count: number): unknown[] {
   return randomItems.map((ra) => ra.value);
 }
 
-export { getRandomNotAdjactedItems };
+export { getRandomNonAdjacentItems };

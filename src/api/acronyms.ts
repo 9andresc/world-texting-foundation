@@ -76,4 +76,24 @@ router.post('/', async function createAcronym(req: Request, res: Response, next:
   res.send({ ...acronym, definitions: JSON.parse(String(acronym.definitions)) });
 });
 
+router.put('/:acronym', async function updateAcronym(req: Request, res: Response, next: NextFunction) {
+  const params = {
+    acronym: req.params.acronym,
+  };
+  const data = {
+    acronym: req.body.acronym,
+    definitions: req.body.definitions,
+  };
+
+  let acronym: Acronym;
+  try {
+    acronym = await acronymsService.updateAcronym({ db, params, data });
+  } catch (error) {
+    return next(error);
+  }
+
+  res.status(200);
+  res.send({ ...acronym, definitions: JSON.parse(String(acronym.definitions)) });
+});
+
 export default router;

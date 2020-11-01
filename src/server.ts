@@ -1,6 +1,6 @@
 import cors from 'cors';
 import express from 'express';
-import listEndpoints from 'express-list-endpoints';
+import routesList from 'express-routes-catalogue';
 import helmet from 'helmet';
 import morgan from 'morgan';
 
@@ -45,7 +45,7 @@ async function startServer() {
   try {
     await listen(3000);
     console.log('Server listening at 127.0.0.1:3000');
-    console.log(listEndpoints(app));
+    routesList.terminal(app);
   } catch (error) {
     console.error(error);
     process.exit(1);

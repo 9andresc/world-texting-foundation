@@ -48,7 +48,7 @@ async function startServer() {
   try {
     const port = process.env.PORT || 3000;
     await listen(Number(port));
-    console.log('Server listening at 127.0.0.1:3000');
+    console.log(`Server listening at 127.0.0.1:${port}`);
     routesList.terminal(app);
   } catch (error) {
     console.error(error);

@@ -44,4 +44,4 @@ $ npm run generateToken
 - Use JSON Schema to validate params, queryParams, and body
 - Document API using Swagger to have a more universal way to test the endpoints
 - Use Docker to containerize API, and maybe even use a more robust database like PostgreSQL in conjunction
-- After using `knex` as query builder I now realize how difficult will be to mock the API due to the functions chaining. Maybe replaced it with an ORM could have been a better approach
+- After using `knex` as query builder I now realize how difficult will be to mock the API due to the functions chaining. Maybe replacing it with an ORM could have been a better approach

@@ -1,8 +1,11 @@
 import cors from 'cors';
+import * as dotenv from 'dotenv';
 import express from 'express';
 import routesList from 'express-routes-catalogue';
 import helmet from 'helmet';
 import morgan from 'morgan';
+
+dotenv.config();
 
 import acronymsAPI from 'api/acronyms';
 import miscAPI from 'api/misc';
@@ -43,7 +46,8 @@ function listen(port: number) {
 
 async function startServer() {
   try {
-    await listen(3000);
+    const port = process.env.PORT || 3000;
+    await listen(Number(port));
     console.log('Server listening at 127.0.0.1:3000');
     routesList.terminal(app);
   } catch (error) {

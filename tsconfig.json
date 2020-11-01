@@ -12,6 +12,7 @@
       "api/*": ["src/api/*"],
       "db/*": ["src/db/*"],
       "helpers/*": ["src/helpers/*"],
+      "middleware/*": ["src/middleware/*"],
       "scripts/*": ["src/scripts/*"],
       "services/*": ["src/services/*"]
     },

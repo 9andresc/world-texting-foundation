@@ -3,6 +3,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import { connectToDB } from 'db';
 import { Acronym } from 'db/interfaces/acronyms';
 import { generateLinks } from 'helpers/pagination';
+import access from 'middleware/access';
 import acronymsService from 'services/acronyms';
 
 const router = express.Router();
@@ -76,7 +77,7 @@ router.post('/', async function createAcronym(req: Request, res: Response, next:
   res.send({ ...acronym, definitions: JSON.parse(String(acronym.definitions)) });
 });
 
-router.put('/:acronym', async function updateAcronym(req: Request, res: Response, next: NextFunction) {
+router.put('/:acronym', [access], async function updateAcronym(req: Request, res: Response, next: NextFunction) {
   const params = {
     acronym: req.params.acronym,
   };
@@ -96,7 +97,7 @@ router.put('/:acronym', async function updateAcronym(req: Request, res: Response
   res.send({ ...acronym, definitions: JSON.parse(String(acronym.definitions)) });
 });
 
-router.delete('/:acronym', async function updateAcronym(req: Request, res: Response, next: NextFunction) {
+router.delete('/:acronym', [access], async function updateAcronym(req: Request, res: Response, next: NextFunction) {
   const params = {
     acronym: req.params.acronym,
   };

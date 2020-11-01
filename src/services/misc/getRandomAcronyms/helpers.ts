@@ -10,7 +10,7 @@ function getRandomNonAdjacentItems(items: unknown[], count: number): unknown[] {
   randomItems.push({ value: items[randomIndex], index: randomIndex });
 
   let i = 1;
-  while (i <= count) {
+  while (i < count) {
     let availableIndexes = indexes;
     let randomAvailableIndex = randomNumber(0, availableIndexes.length - 1);
     randomIndex = availableIndexes[randomAvailableIndex];

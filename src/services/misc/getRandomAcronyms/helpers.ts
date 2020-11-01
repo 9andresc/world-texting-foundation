@@ -1,14 +1,13 @@
-import { Acronym } from 'db/interfaces/acronyms';
 import { randomNumber } from 'helpers';
 
-function getRandomAcronyms(acronyms: Acronym[], count: number): Acronym[] {
-  const randomAcronyms = [];
+function getRandomNotAdjactedItems(items: Record<string, unknown>[], count: number): Record<string, unknown>[] {
+  const randomItems = [];
 
-  let indexes = acronyms.map((_a, i) => i);
+  let indexes = items.map((_i, i) => i);
   let randomIndex = randomNumber(0, indexes.length - 1);
   indexes = indexes.slice(0, randomIndex >= 0 ? randomIndex : 0).concat(indexes.slice(randomIndex + 1, indexes.length));
 
-  randomAcronyms.push({ value: acronyms[randomIndex], index: randomIndex });
+  randomItems.push({ value: items[randomIndex], index: randomIndex });
 
   let i = 1;
   while (i <= count) {
@@ -16,7 +15,7 @@ function getRandomAcronyms(acronyms: Acronym[], count: number): Acronym[] {
     let randomAvailableIndex = randomNumber(0, availableIndexes.length - 1);
     randomIndex = availableIndexes[randomAvailableIndex];
 
-    const prevRandomIndex = randomAcronyms[randomAcronyms.length - 1].index;
+    const prevRandomIndex = randomItems[randomItems.length - 1].index;
     while (
       (randomIndex - 1 === prevRandomIndex || randomIndex + 1 === prevRandomIndex) &&
       availableIndexes.length > 0
@@ -32,7 +31,7 @@ function getRandomAcronyms(acronyms: Acronym[], count: number): Acronym[] {
       break;
     }
 
-    randomAcronyms.push({ value: acronyms[randomIndex], index: randomIndex });
+    randomItems.push({ value: items[randomIndex], index: randomIndex });
 
     indexes = indexes.filter((index) => index !== randomIndex);
     randomIndex = randomNumber(0, indexes.length - 1);
@@ -40,7 +39,7 @@ function getRandomAcronyms(acronyms: Acronym[], count: number): Acronym[] {
     i++;
   }
 
-  return randomAcronyms.map((ra) => ra.value);
+  return randomItems.map((ra) => ra.value);
 }
 
-export default { getRandomAcronyms };
+export { getRandomNotAdjactedItems };

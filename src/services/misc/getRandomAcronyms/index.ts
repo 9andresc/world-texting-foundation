@@ -3,7 +3,7 @@ import Knex from 'knex';
 import { Acronym } from 'db/interfaces/acronyms';
 import { ResponseError } from 'helpers/errors';
 
-import helpers from './helpers';
+import { getRandomNotAdjactedItems } from './helpers';
 
 type Params = {
   db: Knex;
@@ -19,7 +19,7 @@ async function getRandomAcronyms({ db, count }: Params): Promise<Acronym[]> {
     throw new ResponseError(`'count' can't be greater than ${total.count}.`, 400);
   }
 
-  const randomAcronyms = helpers.getRandomAcronyms(acronyms, count);
+  const randomAcronyms = (getRandomNotAdjactedItems(acronyms, count) as unknown) as Acronym[];
 
   return randomAcronyms;
 }

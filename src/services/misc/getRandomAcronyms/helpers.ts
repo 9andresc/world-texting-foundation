@@ -1,6 +1,6 @@
 import { randomNumber } from 'helpers';
 
-function getRandomNotAdjactedItems(items: Record<string, unknown>[], count: number): Record<string, unknown>[] {
+function getRandomNotAdjactedItems(items: unknown[], count: number): unknown[] {
   const randomItems = [];
 
   let indexes = items.map((_i, i) => i);

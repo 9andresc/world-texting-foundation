@@ -19,7 +19,7 @@ async function getRandomAcronyms({ db, count }: Params): Promise<Acronym[]> {
     throw new ResponseError(`'count' can't be greater than ${total.count}.`, 400);
   }
 
-  const randomAcronyms = (getRandomNotAdjactedItems(acronyms, count) as unknown) as Acronym[];
+  const randomAcronyms = getRandomNotAdjactedItems(acronyms, count) as Acronym[];
 
   return randomAcronyms;
 }

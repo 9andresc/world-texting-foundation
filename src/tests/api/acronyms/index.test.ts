@@ -1,7 +1,8 @@
 import app from '../../../app'
 import db from '../../../db'
 
-import getAcronymsTests from './getAcronyms/index'
+import getAcronymTests from './getAcronym'
+import getAcronymsTests from './getAcronyms'
 
 describe('Acronyms API', () => {
   beforeAll(async () => {
@@ -29,6 +30,16 @@ describe('Acronyms API', () => {
 
     it('should return paginated acronyms', async () => {
       await getAcronymsTests.paginated(app)
+    })
+  })
+
+  describe('Get Acronym', () => {
+    it('should return a matched acronym', async () => {
+      await getAcronymTests.matched(app)
+    })
+
+    it('should not return an acronym', async () => {
+      await getAcronymTests.notFound(app)
     })
   })
 })

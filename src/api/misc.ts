@@ -1,12 +1,10 @@
 import express, { NextFunction, Request, Response } from 'express'
 
-import { connectToDB } from 'db'
+import db from 'db'
 import { Acronym } from 'db/interfaces/acronyms'
 import miscService from 'services/misc'
 
 const router = express.Router()
-
-const db = connectToDB()
 
 router.get('/random/:count', async function getRandomAcronyms(req: Request, res: Response, next: NextFunction) {
   let randomAcronyms: Acronym[]

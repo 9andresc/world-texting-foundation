@@ -3,16 +3,12 @@ import knex from 'knex'
 
 import knexConfig from './knexfile'
 
-let connection: Knex
+let db: Knex = null
 
-function connectToDB(): Knex {
-  if (connection) {
-    console.log('Cached connection.')
-    return connection
-  }
-
-  connection = knex(knexConfig.development)
-  return connection
+if (process.env.NODE_ENV === 'test') {
+  db = knex(knexConfig.test)
+} else {
+  db = knex(knexConfig.development)
 }
 
-export { connectToDB }
+export default db

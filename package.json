@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc --project ./",
     "dbm:new": "knex --knexfile src/db/knexfile.js migrate:make",
+    "dbm:reset": "knex --knexfile src/db/knexfile.js migrate:rollback --all && npm run dbm:run",
     "dbm:run": "knex --knexfile src/db/knexfile.js migrate:latest",
     "dbm:undo": "knex --knexfile src/db/knexfile.js migrate:rollback",
     "dbs:new": "knex --knexfile src/db/knexfile.js seed:make",
@@ -15,7 +16,7 @@
     "spt:secret": "ts-node src/scripts/generateSecret",
     "spt:token": "ts-node src/scripts/generateToken",
     "start": "ts-node -r tsconfig-paths/register src/index.ts",
-    "test": "jest"
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000"
   },
   "repository": {
     "type": "git",

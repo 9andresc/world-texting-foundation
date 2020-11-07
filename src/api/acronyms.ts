@@ -1,14 +1,12 @@
 import express, { NextFunction, Request, Response } from 'express'
 
-import { connectToDB } from 'db'
+import db from 'db'
 import { Acronym } from 'db/interfaces/acronyms'
 import { generateLinks } from 'helpers/pagination'
 import access from 'middleware/access'
 import acronymsService from 'services/acronyms'
 
 const router = express.Router()
-
-const db = connectToDB()
 
 router.get('/', async function getAcronyms(req: Request, res: Response, next: NextFunction) {
   const queryParams = {

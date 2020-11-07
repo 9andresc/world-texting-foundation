@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express'
 
-import db from 'db'
+import db from 'db/index'
 import { Acronym } from 'db/interfaces/acronyms'
 import { generateLinks } from 'helpers/pagination'
 import access from 'middleware/access'

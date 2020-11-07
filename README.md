@@ -34,6 +34,10 @@ PORT=3000
 ```bash
 $ npm start
 ```
+- To run the test suite
+```bash
+$ npm test
+```
 - There's a Postman collection ready to be imported inside `/src/docs`
 - If you want to use the guarded endpoints `PUT` and `DELETE` /acronym/:acronym, generate a token running
 ```bash

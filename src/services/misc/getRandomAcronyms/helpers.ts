@@ -1,4 +1,4 @@
-import { randomNumber } from 'helpers'
+import { randomNumber } from 'helpers/index'
 
 function getRandomNonAdjacentItems(items: unknown[], count: number): unknown[] {
   const randomItems = []

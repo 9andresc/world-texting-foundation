@@ -1,7 +1,7 @@
-import getRandomAcronyms from './getRandomAcronyms';
+import getRandomAcronyms from './getRandomAcronyms'
 
 const miscService = {
-  getRandomAcronyms,
-};
+  getRandomAcronyms
+}
 
-export default miscService;
+export default miscService

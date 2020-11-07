@@ -1,11 +1,11 @@
-import generator from 'generate-password';
+import generator from 'generate-password'
 
 function main() {
   const secret = generator.generate({
     length: 20,
-    numbers: true,
-  });
-  console.log(secret);
+    numbers: true
+  })
+  console.log(secret)
 }
 
-main();
+main()

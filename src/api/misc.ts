@@ -1,23 +1,23 @@
-import express, { NextFunction, Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express'
 
-import { connectToDB } from 'db';
-import { Acronym } from 'db/interfaces/acronyms';
-import miscService from 'services/misc';
+import { connectToDB } from 'db'
+import { Acronym } from 'db/interfaces/acronyms'
+import miscService from 'services/misc'
 
-const router = express.Router();
+const router = express.Router()
 
-const db = connectToDB();
+const db = connectToDB()
 
 router.get('/random/:count', async function getRandomAcronyms(req: Request, res: Response, next: NextFunction) {
-  let randomAcronyms: Acronym[];
+  let randomAcronyms: Acronym[]
   try {
-    randomAcronyms = await miscService.getRandomAcronyms({ db, count: Number(req.params.count) });
+    randomAcronyms = await miscService.getRandomAcronyms({ db, count: Number(req.params.count) })
   } catch (error) {
-    return next(error);
+    return next(error)
   }
 
-  res.status(200);
-  res.send(randomAcronyms.map((ra) => ({ ...ra, definitions: JSON.parse(String(ra.definitions)) })));
-});
+  res.status(200)
+  res.send(randomAcronyms.map((ra) => ({ ...ra, definitions: JSON.parse(String(ra.definitions)) })))
+})
 
-export default router;
+export default router

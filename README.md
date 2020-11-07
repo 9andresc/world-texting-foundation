@@ -21,7 +21,7 @@ PORT=3000
 ```
 5. Run script to generate JWT secret
 ```bash
-$ npm run generateSecret
+$ npm run spt:secret
 ```
 6. Fill `JWT_SECRET` value
 ```
@@ -37,7 +37,7 @@ $ npm start
 - There's a Postman collection ready to be imported inside `/src/docs`
 - If you want to use the guarded endpoints `PUT` and `DELETE` /acronym/:acronym, generate a token running
 ```bash
-$ npm run generateToken
+$ npm run spt:token
 ```
 
 # Acknowledgments

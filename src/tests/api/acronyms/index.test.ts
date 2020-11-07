@@ -1,10 +1,7 @@
 import app from '../../../app'
 import db from '../../../db'
 
-import getDefaultAcronyms from './getAcronyms/getDefaultAcronyms'
-import getMatchedAcronyms from './getAcronyms/getMatchedAcronyms'
-import getNotFoundAcronyms from './getAcronyms/getNotFoundAcronyms'
-import getPaginatedAcronyms from './getAcronyms/getPaginatedAcronyms'
+import getAcronymsTests from './getAcronyms/index'
 
 describe('Acronyms API', () => {
   beforeAll(async () => {
@@ -19,19 +16,19 @@ describe('Acronyms API', () => {
 
   describe('Get Acronyms', () => {
     it('should return default acronyms', async () => {
-      await getDefaultAcronyms(app)
+      await getAcronymsTests.default(app)
     })
 
     it('should return matched acronyms', async () => {
-      await getMatchedAcronyms(app)
+      await getAcronymsTests.matched(app)
     })
 
     it('should not return acronyms', async () => {
-      await getNotFoundAcronyms(app)
+      await getAcronymsTests.notFound(app)
     })
 
     it('should return paginated acronyms', async () => {
-      await getPaginatedAcronyms(app)
+      await getAcronymsTests.paginated(app)
     })
   })
 })

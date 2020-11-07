@@ -3,25 +3,33 @@ import express, { NextFunction, Request, Response } from 'express'
 import db from 'db/index'
 import { Acronym } from 'db/interfaces/acronyms'
 import { generateLinks } from 'helpers/pagination'
+import { runValidation } from 'helpers/validation'
 import access from 'middleware/access'
 import acronymsService from 'services/acronyms'
 
 const router = express.Router()
 
-router.get('/', async function getAcronyms(req: Request, res: Response, next: NextFunction) {
-  const queryParams = {
-    from: 0,
-    limit: 10,
-    search: ''
+router.get('', async function getAcronyms(req: Request, res: Response, next: NextFunction) {
+  const queryParams = (req.query as unknown) as {
+    from?: number
+    limit?: number
+    search?: string
   }
-  if (req.query.from) {
-    queryParams.from = Number(req.query.from)
+
+  const schema = {
+    $async: true,
+    type: 'object',
+    properties: {
+      from: { type: 'number', default: 0, minimum: 0 },
+      limit: { type: 'number', default: 10, minimum: 1 },
+      search: { type: 'string', default: '' }
+    }
   }
-  if (req.query.limit) {
-    queryParams.limit = Number(req.query.limit)
-  }
-  if (req.query.search) {
-    queryParams.search = String(req.query.search)
+
+  try {
+    await runValidation(queryParams, schema, { coerceTypes: true, useDefaults: true })
+  } catch (error) {
+    return next(error)
   }
 
   let acronyms: Acronym[]
@@ -43,9 +51,7 @@ router.get('/', async function getAcronyms(req: Request, res: Response, next: Ne
 })
 
 router.get('/:acronym', async function getAcronym(req: Request, res: Response, next: NextFunction) {
-  const params = {
-    acronym: req.params.acronym
-  }
+  const params = (req.params as unknown) as { acronym: string }
 
   let acronym: Acronym
   try {
@@ -58,10 +64,26 @@ router.get('/:acronym', async function getAcronym(req: Request, res: Response, n
   res.send({ ...acronym, definitions: JSON.parse(String(acronym.definitions)) })
 })
 
-router.post('/', async function createAcronym(req: Request, res: Response, next: NextFunction) {
-  const data = {
-    acronym: req.body.acronym,
-    definitions: req.body.definitions
+router.post('', async function createAcronym(req: Request, res: Response, next: NextFunction) {
+  const data = (req.body as unknown) as {
+    acronym: string
+    definitions: string[]
+  }
+
+  const schema = {
+    $async: true,
+    type: 'object',
+    properties: {
+      acronym: { type: 'string' },
+      definitions: { type: 'array', items: { type: 'string' } }
+    },
+    required: ['acronym', 'definitions']
+  }
+
+  try {
+    await runValidation(data, schema)
+  } catch (error) {
+    return next(error)
   }
 
   let acronym: Acronym
@@ -76,12 +98,25 @@ router.post('/', async function createAcronym(req: Request, res: Response, next:
 })
 
 router.put('/:acronym', [access], async function updateAcronym(req: Request, res: Response, next: NextFunction) {
-  const params = {
-    acronym: req.params.acronym
+  const params = (req.params as unknown) as { acronym: string }
+  const data = (req.body as unknown) as {
+    acronym: string
+    definitions: string[]
   }
-  const data = {
-    acronym: req.body.acronym,
-    definitions: req.body.definitions
+
+  const schema = {
+    $async: true,
+    type: 'object',
+    properties: {
+      acronym: { type: 'string' },
+      definitions: { type: 'array', items: { type: 'string' } }
+    }
+  }
+
+  try {
+    await runValidation(data, schema)
+  } catch (error) {
+    return next(error)
   }
 
   let acronym: Acronym
@@ -96,9 +131,7 @@ router.put('/:acronym', [access], async function updateAcronym(req: Request, res
 })
 
 router.delete('/:acronym', [access], async function updateAcronym(req: Request, res: Response, next: NextFunction) {
-  const params = {
-    acronym: req.params.acronym
-  }
+  const params = (req.params as unknown) as { acronym: string }
 
   let acronym: Acronym
   try {

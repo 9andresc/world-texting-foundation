@@ -1,6 +1,10 @@
 import { randomNumber } from 'helpers/index'
 
 function getRandomNonAdjacentItems(items: unknown[], count: number): unknown[] {
+  if (count === 0) {
+    return []
+  }
+
   const randomItems = []
 
   let indexes = items.map((_i, i) => i)

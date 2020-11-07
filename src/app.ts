@@ -11,7 +11,9 @@ import { ResponseError } from 'helpers/errors'
 const app = express()
 
 // Middlewares
-app.use(morgan('dev'))
+if (process.env.NODE_ENV !== 'test') {
+  app.use(morgan('dev'))
+}
 app.use(express.json())
 
 // API
@@ -25,7 +27,7 @@ app.use((error: Error, _req: Request, res: Response, _next: NextFunction) => {
       console.error(error.originalError)
     }
     res.status(error.statusCode)
-    res.send({ message: error.message })
+    res.send({ message: error.message, data: error.data })
   } else {
     console.error(error)
     res.status(500)

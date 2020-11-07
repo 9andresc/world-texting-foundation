@@ -1,6 +1,7 @@
 import app from '../../../app'
 import db from '../../../db'
 
+import createAcronymTests from './createAcronym'
 import getAcronymTests from './getAcronym'
 import getAcronymsTests from './getAcronyms'
 
@@ -40,6 +41,16 @@ describe('Acronyms API', () => {
 
     it('should not return an acronym', async () => {
       await getAcronymTests.notFound(app)
+    })
+  })
+
+  describe('Create Acronym', () => {
+    it('should create an acronym', async () => {
+      await createAcronymTests.create(app)
+    })
+
+    it('should not create a duplicated acronym', async () => {
+      await createAcronymTests.duplicated(app)
     })
   })
 })

@@ -1,10 +1,10 @@
 import app from '../../../app'
 import db from '../../../db'
 
-import getDefaultAcronyms from './getDefaultAcronyms'
-import getMatchedAcronyms from './getMatchedAcronyms'
-import getNotFoundAcronyms from './getNotFoundAcronyms'
-import getPaginatedAcronyms from './getPaginatedAcronyms'
+import getDefaultAcronyms from './getAcronyms/getDefaultAcronyms'
+import getMatchedAcronyms from './getAcronyms/getMatchedAcronyms'
+import getNotFoundAcronyms from './getAcronyms/getNotFoundAcronyms'
+import getPaginatedAcronyms from './getAcronyms/getPaginatedAcronyms'
 
 describe('Acronyms API', () => {
   beforeAll(async () => {

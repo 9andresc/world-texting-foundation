@@ -2,6 +2,7 @@ import app from '../../../app'
 import db from '../../../db'
 
 import createAcronymTests from './createAcronym'
+import deleteAcronymTests from './deleteAcronym'
 import getAcronymTests from './getAcronym'
 import getAcronymsTests from './getAcronyms'
 import updateAcronymTests from './updateAcronym'
@@ -60,8 +61,18 @@ describe('Acronyms API', () => {
       await updateAcronymTests.matched(app)
     })
 
-    it('should not updated an acronym', async () => {
+    it('should not update an acronym', async () => {
       await updateAcronymTests.notFound(app)
+    })
+  })
+
+  describe('Delete Acronym', () => {
+    it('should delete a matched acronym', async () => {
+      await deleteAcronymTests.matched(app)
+    })
+
+    it('should not delete an acronym', async () => {
+      await deleteAcronymTests.notFound(app)
     })
   })
 })

@@ -133,15 +133,14 @@ router.put('/:acronym', [access], async function updateAcronym(req: Request, res
 router.delete('/:acronym', [access], async function updateAcronym(req: Request, res: Response, next: NextFunction) {
   const params = (req.params as unknown) as { acronym: string }
 
-  let acronym: Acronym
   try {
-    acronym = await acronymsService.deleteAcronym({ db, params })
+    await acronymsService.deleteAcronym({ db, params })
   } catch (error) {
     return next(error)
   }
 
   res.status(204)
-  res.send({ ...acronym, definitions: JSON.parse(String(acronym.definitions)) })
+  res.send({})
 })
 
 export default router

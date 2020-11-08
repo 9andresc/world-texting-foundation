@@ -4,6 +4,7 @@ import db from '../../../db'
 import createAcronymTests from './createAcronym'
 import getAcronymTests from './getAcronym'
 import getAcronymsTests from './getAcronyms'
+import updateAcronymTests from './updateAcronym'
 
 describe('Acronyms API', () => {
   beforeAll(async () => {
@@ -51,6 +52,16 @@ describe('Acronyms API', () => {
 
     it('should not create a duplicated acronym', async () => {
       await createAcronymTests.duplicated(app)
+    })
+  })
+
+  describe('Update Acronym', () => {
+    it('should update a matched acronym', async () => {
+      await updateAcronymTests.matched(app)
+    })
+
+    it('should not updated an acronym', async () => {
+      await updateAcronymTests.notFound(app)
     })
   })
 })

@@ -45,6 +45,5 @@ $ npm run spt:token
 ```
 
 # Acknowledgments
-- Use JSON Schema to validate params, queryParams, and body
 - Document API using Swagger to have a more universal way to test the endpoints
 - Use Docker to containerize API, and maybe even use a more robust database like PostgreSQL in conjunction
